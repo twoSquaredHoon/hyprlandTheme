@@ -1,0 +1,98 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 35,
+    "width": 1366,
+// Module  placement
+    "margin-bottom":0,
+    "modules-left": [
+	    "custom/powermenu", 
+	    "hyprland/workspaces"
+    ],
+
+    "modules-center": [
+	    "custom/media"
+    ],
+
+    "modules-right": [
+	    // network, battery, audio, language, popup, clock
+	    "network",
+	    "battery",
+	    // "pulseaudio",
+	    "clock"
+    ],
+
+// Left modules
+    "custom/powermenu": {
+	"format": "  start",
+        "on-click": "exec ~/.config/my-scripts/powermenu.sh"
+    },
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}"
+    },
+
+// Center modules
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "persistent-workspaces": {
+        "*": 5, // 5 workspaces by defualt
+        "HDMI-A-1": 3 // but only three on HDMI-A-1
+	}
+    },
+
+// Right modules
+    "clock": {
+        "format": "{:%a %b %d %H:%M}"
+    },
+
+    "battery": {
+        "states": {
+            "good": 79,
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "🔋{capacity}%",
+        "format-critical": "🪫{capacity}%",
+        "format-plugged": "🔌{capacity}%",
+        "format-charging": "🔌{capacity}%"
+    },
+
+    "network": {
+        "format-wifi": "📡 {essid}",
+        "format-ethernet": "{ifname}",
+        "format-disconnected": "Disconnected",
+        "on-click": "alacritty -e 'nmtui'"
+    },
+
+
+    "custom/music": {
+        "format": "{}",
+        "max-length": 20,
+        "interval": 5,
+        "exec": "$HOME/.config/waybar/mediaplayer.sh 2> /dev/null",
+        "tooltip": false,
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl previous",
+        "on-scroll-down": "playerctl next"
+    },
+
+    "custom/alsa": {
+        "exec": "~/.config/my-scripts/alsa.sh",
+        "on-click": "amixer set Master toggle",
+        "on-scroll-down": "amixer set Master 2%-",
+        "on-scroll-up": "amixer set Master 2%+",
+        "signal": 11,
+        "interval": 1,
+        "tooltip": false
+    },
+
+    "backlight": {
+        "format": " {icon}{percent}% ",
+        "format-icons": ["🌙", "🔅", "🔆", "☀️", "🌞"],
+        "on-click": "bash ~/.config/my-scripts/nightlighttoggle.sh",
+        "tooltip-format": "click to toggle night-mode"
+    }
+}
